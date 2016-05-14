@@ -1,0 +1,9 @@
+# IDE related files
+/egen-be-challenge.iml
+/.idea
+/.mvn
+
+/mvnw
+/mvnw.cmd
+
+/target
