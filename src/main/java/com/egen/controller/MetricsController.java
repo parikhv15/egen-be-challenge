@@ -60,7 +60,7 @@ public class MetricsController {
     public ResponseEntity<List<Metric>> readByTimeRange(@PathVariable Long startTime, @PathVariable Long endTime) {
 
         if (startTime == null || endTime == null)
-            return new ResponseEntity<List<Metric>>((List<Metric>) new ArrayList<Metric>(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<List<Metric>>(new ArrayList<Metric>(), HttpStatus.BAD_REQUEST);
 
         List<Metric> metricList = metricService.readByRange(startTime, endTime);
 

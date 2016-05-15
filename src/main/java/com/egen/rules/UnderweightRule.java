@@ -26,10 +26,8 @@ public class UnderweightRule implements MetricsRule {
     public boolean when() {
         double percent = ((double) metric.getValue()) / baseWeight;
 
-        if (percent < 0.9)
-            return true;
+        return percent < 0.9;
 
-        return false;
     }
 
     @Override

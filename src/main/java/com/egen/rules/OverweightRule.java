@@ -26,10 +26,8 @@ public class OverweightRule implements MetricsRule{
     public boolean when() {
         double percent = ((double) metric.getValue()) / baseWeight;
 
-        if (percent > 1.1)
-            return true;
+        return percent > 1.1;
 
-        return false;
     }
 
     @Override

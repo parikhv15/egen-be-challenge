@@ -42,7 +42,7 @@ public class AlertController {
     public ResponseEntity<List<Alert>> readByTimeRange(@PathVariable Long startTime, @PathVariable Long endTime) {
 
         if (startTime == null || endTime == null)
-            return new ResponseEntity<List<Alert>>((List<Alert>) new ArrayList<Alert>(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<List<Alert>>(new ArrayList<Alert>(), HttpStatus.BAD_REQUEST);
 
         List<Alert> alertList = alertService.readByRange(startTime, endTime);
 

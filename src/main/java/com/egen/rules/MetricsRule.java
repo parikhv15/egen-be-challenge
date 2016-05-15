@@ -5,7 +5,7 @@ package com.egen.rules;
  */
 public interface MetricsRule {
 
-    enum RuleType {OVER_WEIGHT, UNDER_WEIGHT};
+    enum RuleType {OVER_WEIGHT, UNDER_WEIGHT}
 
     int baseWeight = Integer.parseInt(System.getProperty("base.value"));
 
