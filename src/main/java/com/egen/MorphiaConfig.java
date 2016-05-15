@@ -21,6 +21,7 @@ public class MorphiaConfig {
         Morphia morphia = new Morphia();
         try {
             datastore = morphia.createDatastore(new MongoClient(), "morphia_client");
+            datastore.ensureIndexes();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

@@ -8,6 +8,8 @@ import org.bson.types.ObjectId;
 import org.easyrules.api.RulesEngine;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -16,6 +18,8 @@ import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 /**
  * Created by vrajp on 5/15/2016.
  */
+
+@Component
 public class MetricService {
 
     private RulesEngine rulesEngine;

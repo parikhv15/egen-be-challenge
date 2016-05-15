@@ -5,12 +5,15 @@ import com.egen.model.Metric;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by vrajp on 5/15/2016.
  */
+
+@Component
 public class MetricDAO {
 
     Datastore datastore;

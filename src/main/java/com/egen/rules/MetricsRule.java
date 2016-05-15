@@ -7,7 +7,7 @@ public interface MetricsRule {
 
     enum RuleType {OVER_WEIGHT, UNDER_WEIGHT};
 
-    int baseWeight = 150;
+    int baseWeight = Integer.parseInt(System.getProperty("base.value"));
 
     boolean when();
     void then();
