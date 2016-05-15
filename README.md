@@ -16,12 +16,18 @@ Dependencies : [Java 7] (http://www.oracle.com/technetwork/java/javase/downloads
 
 ### Steps to Run
 
-1) Run Project
+1) Compile Project and generate jar
 ```
-mvn spring-boot:run
+mvn clean package
 ```
 
-2) Test Project
+2) Run Project
+```
+java -jar -Dbase.value=<base_weight> target/egen-be-challenge-0.0.1-SNAPSHOT.jar
+```
+Enter value for base_weight [Example- -Dbase.value=150]
+
+3) Test Project
 ```
 mvn test
 ```
