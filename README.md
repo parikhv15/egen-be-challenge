@@ -16,10 +16,57 @@ Dependencies : [Java 7] (http://www.oracle.com/technetwork/java/javase/downloads
 
 ### Steps to Run
 
-1) Compile Project
+1) Run Project
 ```
 mvn spring-boot:run
 ```
+
+2) Test Project
+```
+mvn test
+```
+
+### APIs Exposed
+
+#### Metrics
+
+- Stores the data that comes from sensor
+
+1) Create
+
+```
+POST Request => http://localhost/metrics/create/
+```
+
+2) Read
+
+```
+GET Request => http://localhost/metrics/read/
+```
+
+3) Read by Range
+
+```
+GET Request => http://localhost/metrics/readRange/{startTime}/{endTime}
+```
+
+
+#### Alerts
+
+- Stores the alerts that were created by the rules
+
+1) Read
+
+```
+GET Request => http://localhost/alerts/read/
+```
+
+2) Read by Range
+
+```
+GET Request => http://localhost/alerts/readRange/{startTime}/{endTime}
+```
+
 ### License
 
 VP
