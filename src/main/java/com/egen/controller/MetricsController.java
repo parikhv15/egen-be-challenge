@@ -4,6 +4,7 @@ import com.egen.MorphiaConfig;
 import com.egen.model.Metric;
 import com.egen.rules.MetricsRule;
 import com.egen.rules.RulesFactory;
+import com.egen.service.MetricService;
 import org.easyrules.api.RulesEngine;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
@@ -26,11 +27,11 @@ import com.egen.rules.MetricsRule.RuleType;
 @RequestMapping("/metrics")
 @RestController
 public class MetricsController {
-    private RulesEngine rulesEngine;
-    private MetricsRule rule;
+
+    @Autowired
+    private MetricService metricService;
 
     MetricsController() {
-        rulesEngine = aNewRulesEngine().build();
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -38,17 +39,7 @@ public class MetricsController {
         if (metric == null)
             return new ResponseEntity<Metric>(metric, HttpStatus.BAD_REQUEST);
 
-        Datastore datastore = MorphiaConfig.getInstance().getDatastore();
-
-        datastore.save(metric);
-
-        rule = RulesFactory.getRule(RuleType.UNDER_WEIGHT, metric);
-        rulesEngine.registerRule(rule);
-        rule = RulesFactory.getRule(RuleType.OVER_WEIGHT, metric);
-        rulesEngine.registerRule(rule);
-
-        rulesEngine.fireRules();
-        rulesEngine.clearRules();
+        metricService.createMetric(metric);
 
         return new ResponseEntity<Metric>(metric, HttpStatus.OK);
     }
@@ -56,24 +47,19 @@ public class MetricsController {
     @RequestMapping(value = "/read")
     public ResponseEntity<List<Metric>> read() {
 
-        Datastore datastore = MorphiaConfig.getInstance().getDatastore();
+        List<Metric> metricList = metricService.read();
 
-        Query<Metric> query = datastore.createQuery(Metric.class);
-
-        return new ResponseEntity<List<Metric>>(query.asList(), HttpStatus.OK);
+        return new ResponseEntity<List<Metric>>(metricList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/readRange")
-    public ResponseEntity<List<Metric>> readByTimeRange(Long timeStamp1, Long timeStamp2) {
+    public ResponseEntity<List<Metric>> readByTimeRange(Long startTime, Long endTime) {
 
-        if (timeStamp1 == null || timeStamp2 == null)
+        if (startTime == null || endTime == null)
             return new ResponseEntity<List<Metric>>((List<Metric>) new ArrayList<Metric>(), HttpStatus.BAD_REQUEST);
 
-        Datastore datastore = MorphiaConfig.getInstance().getDatastore();
+        List<Metric> metricList = metricService.readByRange(startTime, endTime);
 
-        Query<Metric> query = datastore.createQuery(Metric.class)
-                .filter("timeStamp >=", timeStamp1).filter("timeStamp <=", timeStamp2);
-
-        return new ResponseEntity<List<Metric>>(query.asList(), HttpStatus.OK);
+        return new ResponseEntity<List<Metric>>(metricList, HttpStatus.OK);
     }
 }
