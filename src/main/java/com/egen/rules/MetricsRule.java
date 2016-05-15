@@ -9,6 +9,8 @@ public interface MetricsRule {
 
     int baseWeight = Integer.parseInt(System.getProperty("base.value"));
 
+//    int baseWeight = 150;
+
     boolean when();
     void then();
 }
