@@ -9,6 +9,7 @@ import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,16 +32,22 @@ public class AlertController {
 
         List<Alert> alertList = alertService.read();
 
+        if (alertList.size() == 0)
+            return new ResponseEntity<List<Alert>>(alertList, HttpStatus.NO_CONTENT);
+
         return new ResponseEntity<List<Alert>>(alertList, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/readRange")
-    public ResponseEntity<List<Alert>> readByTimeRange(Long startRime, Long endTime) {
+    @RequestMapping(value = "/readRange/{startTime}/{endTime}")
+    public ResponseEntity<List<Alert>> readByTimeRange(@PathVariable Long startTime, @PathVariable Long endTime) {
 
-        if (startRime == null || endTime == null)
+        if (startTime == null || endTime == null)
             return new ResponseEntity<List<Alert>>((List<Alert>) new ArrayList<Alert>(), HttpStatus.BAD_REQUEST);
 
-        List<Alert> alertList = alertService.readByRange(startRime, endTime);
+        List<Alert> alertList = alertService.readByRange(startTime, endTime);
+
+        if (alertList.size() == 0)
+            return new ResponseEntity<List<Alert>>(alertList, HttpStatus.NO_CONTENT);
 
         return new ResponseEntity<List<Alert>>(alertList, HttpStatus.OK);
     }
