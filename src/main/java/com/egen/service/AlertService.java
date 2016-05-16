@@ -25,7 +25,11 @@ public class AlertService {
     @Autowired
     private AlertDAO alertDAO;
 
-    AlertService() {
+    public AlertService() {
+    }
+
+    public ObjectId create (Alert alert) {
+        return alertDAO.create(alert);
     }
 
     public List<Alert> read () {
@@ -35,5 +39,4 @@ public class AlertService {
     public List<Alert> readByRange(long startTime, long endTime) {
         return alertDAO.readByRange(startTime, endTime);
     }
-
 }
